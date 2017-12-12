@@ -23,10 +23,17 @@ public interface MainMVP {
 
     interface Interactor {
         interface OnGetExchangeRatesFinishedListener {
-            void onError();
-            void onSuccess(/*list of exchances+values*/);
+            void onErrorGetExchangeRates();
+            void onSuccessGetExchangeRates(/*list of exchances+values*/);
         }
 
         void getExchangeRates(/*currency*/);
+
+        interface OnGetBaseCurrencyListFinishedListener {
+            void onErrorGetBaseCurrency();
+            void onSuccessGetBaseCurrency(/*list of exchances+values*/);
+
+        }
+        void getBaseCurrencyList();
     }
 }
