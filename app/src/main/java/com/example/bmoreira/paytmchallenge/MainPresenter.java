@@ -18,12 +18,12 @@ public class MainPresenter implements MainMVP.Presenter,
 
     @Override
     public void onCreate() {
-
+        mainInteractor.getBaseCurrencyList(this);
     }
 
     @Override
     public void onDestroy() {
-
+        mainView = null;
     }
 
     @Override
@@ -49,11 +49,15 @@ public class MainPresenter implements MainMVP.Presenter,
 
     @Override
     public void onErrorGetBaseCurrency() {
-
+        if (mainView != null) {
+            mainView.showErrorDialog();
+        }
     }
 
     @Override
     public void onSuccessGetBaseCurrency() {
-
+        if (mainView != null) {
+            mainView.updateBaseCurrencyList();
+        }
     }
 }

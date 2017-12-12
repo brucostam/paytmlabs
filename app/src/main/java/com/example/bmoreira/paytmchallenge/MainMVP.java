@@ -27,13 +27,13 @@ public interface MainMVP {
             void onSuccessGetExchangeRates(/*list of exchances+values*/);
         }
 
-        void getExchangeRates(/*currency*/);
+        void getExchangeRates(/*currency*/OnGetExchangeRatesFinishedListener listener);
 
         interface OnGetBaseCurrencyListFinishedListener {
             void onErrorGetBaseCurrency();
             void onSuccessGetBaseCurrency(/*list of exchances+values*/);
 
         }
-        void getBaseCurrencyList();
+        void getBaseCurrencyList(OnGetBaseCurrencyListFinishedListener listener);
     }
 }
