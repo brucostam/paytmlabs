@@ -1,0 +1,90 @@
+package com.example.bmoreira.paytmchallenge;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+/**
+ * Created by bruco on 2017-12-13.
+ */
+
+@RunWith(MockitoJUnitRunner.class)
+public class MainPresenterTest {
+
+    @Mock
+    MainActivity view;
+    @Mock
+    MainInteractor interactor;
+
+    private MainPresenter presenter;
+
+    @Before
+    public void setUp() throws Exception {
+        presenter = new MainPresenter(view, interactor);
+    }
+
+    @Test
+    public void checkIfGetsBaseCurrencyListOnCretion() {
+        presenter.onCreate();
+        verify(interactor, times(1)).getBaseCurrencyList(presenter);
+    }
+
+    @Test
+    public void checkIfViewIsReleasedOnDestroy() {
+        presenter.onDestroy();
+        assertNull(presenter.getMainView());
+    }
+
+    @Test
+    public void checkIfGetExchangeRatesListOnBaseCurrencyChangeWithCurrencyBRL() {
+        String currency = "BRL";
+        presenter.onBaseCurrencyChange(currency);
+        verify(interactor, times(1)).getExchangeRates(currency, presenter);
+    }
+
+    @Test
+    public void checkIfGetExchangeRatesListOnBaseCurrencyChangeWithCurrencyUSD() {
+        String currency = "USD";
+        presenter.onBaseCurrencyChange(currency);
+        verify(interactor, times(1)).getExchangeRates(currency, presenter);
+    }
+
+    @Test
+    public void checkIfGetExchangeRatesListOnBaseCurrencyChangeWithCurrencyEUR() {
+        String currency = "EUR";
+        presenter.onBaseCurrencyChange(currency);
+        verify(interactor, times(1)).getExchangeRates(currency, presenter);
+    }
+
+    public void onAmountChange() {
+
+    }
+
+    /* Interector Listener functions */
+    public void onErrorGetExchangeRates() {
+
+    }
+
+    public void onSuccessGetExchangeRates() {
+
+    }
+
+    public void onErrorGetBaseCurrency() {
+//        if (mainView != null) {
+//            mainView.showErrorDialog();
+//        }
+    }
+
+    public void onSuccessGetBaseCurrency() {
+//        if (mainView != null) {
+//            mainView.updateBaseCurrencyList();
+//        }
+    }
+
+}

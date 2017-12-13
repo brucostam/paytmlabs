@@ -26,7 +26,6 @@ public class MainInteractor implements MainMVP.Interactor {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // Create an instance of our GitHub API interface.
         fixerAPIService = retrofit.create(FixerAPIService.class);
     }
 

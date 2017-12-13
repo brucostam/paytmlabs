@@ -28,8 +28,8 @@ public class MainPresenter implements MainMVP.Presenter,
     }
 
     @Override
-    public void onBaseCurrencyChange() {
-
+    public void onBaseCurrencyChange(String currency) {
+        mainInteractor.getExchangeRates(currency, this);
     }
 
     @Override
@@ -60,5 +60,9 @@ public class MainPresenter implements MainMVP.Presenter,
         if (mainView != null) {
             mainView.updateBaseCurrencyList();
         }
+    }
+
+    public MainMVP.View getMainView() {
+        return mainView;
     }
 }

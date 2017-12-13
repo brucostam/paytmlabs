@@ -17,7 +17,7 @@ public interface MainMVP {
     interface Presenter {
         void onCreate();
         void onDestroy();
-        void onBaseCurrencyChange(/*currency selected*/);
+        void onBaseCurrencyChange(String currency);
         void onAmountChange(/*amount*/);
     }
 
@@ -26,13 +26,11 @@ public interface MainMVP {
             void onErrorGetExchangeRates();
             void onSuccessGetExchangeRates(/*list of exchances+values*/);
         }
-
         void getExchangeRates(String baseCurrency, OnGetExchangeRatesFinishedListener listener);
 
         interface OnGetBaseCurrencyListFinishedListener {
             void onErrorGetBaseCurrency();
             void onSuccessGetBaseCurrency(/*list of exchances+values*/);
-
         }
         void getBaseCurrencyList(OnGetBaseCurrencyListFinishedListener listener);
     }
