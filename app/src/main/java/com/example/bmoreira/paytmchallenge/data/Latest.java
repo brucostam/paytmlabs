@@ -21,7 +21,40 @@ public class Latest {
                 "ZAR": 16.062
     } */
 
-    public String base;
-    public String date;
-    public Map<String, Float> rates;
+    private String base;
+    private String date;
+    private Map<String, Float> rates;
+
+    @Override
+    public String toString() {
+        return "Latest{"
+                + "base='" + base + '\''
+                + ", date='" + date + '\''
+                + ", rates=" + rates
+                + '}';
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public void setBase(String base) {
+        this.base = base;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Map<String, Float> getRates() {
+        return rates;
+    }
+
+    public void setRates(Map<String, Float> rates) {
+        this.rates = rates;
+    }
 }

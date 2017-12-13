@@ -19,6 +19,7 @@ public class MainPresenter implements MainMVP.Presenter,
     @Override
     public void onCreate() {
         mainInteractor.getBaseCurrencyList(this);
+        mainInteractor.getExchangeRates("USD", this);
     }
 
     @Override

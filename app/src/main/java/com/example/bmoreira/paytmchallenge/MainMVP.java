@@ -27,7 +27,7 @@ public interface MainMVP {
             void onSuccessGetExchangeRates(/*list of exchances+values*/);
         }
 
-        void getExchangeRates(/*currency*/OnGetExchangeRatesFinishedListener listener);
+        void getExchangeRates(String baseCurrency, OnGetExchangeRatesFinishedListener listener);
 
         interface OnGetBaseCurrencyListFinishedListener {
             void onErrorGetBaseCurrency();
