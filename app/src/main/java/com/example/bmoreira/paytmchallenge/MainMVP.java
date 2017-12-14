@@ -1,5 +1,6 @@
 package com.example.bmoreira.paytmchallenge;
 
+import java.util.Map;
 
 /**
  * Created by bruco on 2017-12-11.
@@ -8,8 +9,8 @@ package com.example.bmoreira.paytmchallenge;
 public interface MainMVP {
 
     interface View {
-        void updateExchangeRatesList(/*list of exchanges+values*/);
-        void updateBaseCurrencyList(/*Array of strings*/);
+        void updateExchangeRatesList();
+        void updateBaseCurrencyList(String[] items);
         void showErrorDialog();
         void hideErrorDialog();
     }
@@ -18,19 +19,19 @@ public interface MainMVP {
         void onCreate();
         void onDestroy();
         void onBaseCurrencyChange(String currency);
-        void onAmountChange(/*amount*/);
+        void onAmountChange(int amount);
     }
 
     interface Interactor {
         interface OnGetExchangeRatesFinishedListener {
             void onErrorGetExchangeRates();
-            void onSuccessGetExchangeRates(/*list of exchances+values*/);
+            void onSuccessGetExchangeRates(Map<String, Float> exchangeRates);
         }
         void getExchangeRates(String baseCurrency, OnGetExchangeRatesFinishedListener listener);
 
         interface OnGetBaseCurrencyListFinishedListener {
             void onErrorGetBaseCurrency();
-            void onSuccessGetBaseCurrency(/*list of exchances+values*/);
+            void onSuccessGetBaseCurrency(String[] items);
         }
         void getBaseCurrencyList(OnGetBaseCurrencyListFinishedListener listener);
     }

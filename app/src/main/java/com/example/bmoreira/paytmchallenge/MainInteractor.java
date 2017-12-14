@@ -5,6 +5,13 @@ import android.util.Log;
 import com.example.bmoreira.paytmchallenge.data.FixerAPIService;
 import com.example.bmoreira.paytmchallenge.data.Latest;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +46,7 @@ public class MainInteractor implements MainMVP.Interactor {
             public void onResponse(Call<Latest> call, Response<Latest> response) {
                 if (response.isSuccessful()) {
                     // tasks available
-                    listener.onSuccessGetExchangeRates();
+                    listener.onSuccessGetExchangeRates(response.body().getRates());
                     Log.d("Paytm", "Latest:" + response.body().getBase());
                 } else {
                     // error response, no access to resource?
@@ -66,7 +73,15 @@ public class MainInteractor implements MainMVP.Interactor {
             public void onResponse(Call<Latest> call, Response<Latest> response) {
                 if (response.isSuccessful()) {
                     // tasks available
-                    listener.onSuccessGetBaseCurrency();
+                    Map<String, Float> rates = response.body().getRates();
+
+                    List<String> sortedList = new ArrayList<>();
+                    sortedList.addAll(rates.keySet());
+                    sortedList.add(response.body().getBase());
+                    Collections.sort(sortedList);
+
+                    String[] items = sortedList.toArray(new String[sortedList.size()]);
+                    listener.onSuccessGetBaseCurrency(items);
                     Log.d("Paytm", "Latest:" + response.body().getBase());
                 } else {
                     // error response, no access to resource?

@@ -1,5 +1,9 @@
 package com.example.bmoreira.paytmchallenge;
 
+import android.widget.BaseAdapter;
+
+import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapterData;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +25,14 @@ public class MainPresenterTest {
     MainActivity view;
     @Mock
     MainInteractor interactor;
+    @Mock
+    ExchangeAdapterData exchangeAdapterData;
 
     private MainPresenter presenter;
 
     @Before
     public void setUp() throws Exception {
-        presenter = new MainPresenter(view, interactor);
+        presenter = new MainPresenter(view, interactor, exchangeAdapterData);
     }
 
     @Test
@@ -62,8 +68,12 @@ public class MainPresenterTest {
         verify(interactor, times(1)).getExchangeRates(currency, presenter);
     }
 
-    public void onAmountChange() {
-
+    @Test
+    public void checkIfOnAmountChangeTheDataIsUpdatedAndUpdateGridIsCalled() {
+        int amount = 1023;
+        presenter.onAmountChange(amount);
+//        verify(dataModel, times(i)).updateValuesList();
+        verify(view, times(1)).updateExchangeRatesList();
     }
 
     /* Interector Listener functions */

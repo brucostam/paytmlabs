@@ -1,5 +1,9 @@
 package com.example.bmoreira.paytmchallenge;
 
+import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapterData;
+
+import java.util.Map;
+
 /**
  * Created by bruco on 2017-12-12.
  */
@@ -10,16 +14,18 @@ public class MainPresenter implements MainMVP.Presenter,
 
     private MainMVP.View mainView;
     private MainMVP.Interactor mainInteractor;
+    private ExchangeAdapterData exchangeAdapterData;
 
-    public MainPresenter(MainMVP.View mainView, MainMVP.Interactor mainInteractor) {
+    public MainPresenter(MainMVP.View mainView, MainMVP.Interactor mainInteractor, ExchangeAdapterData exchangeAdapterData) {
         this.mainView = mainView;
         this.mainInteractor = mainInteractor;
+        this.exchangeAdapterData = exchangeAdapterData;
     }
 
     @Override
     public void onCreate() {
         mainInteractor.getBaseCurrencyList(this);
-        mainInteractor.getExchangeRates("USD", this);
+//        mainInteractor.getExchangeRates("USD", this);
     }
 
     @Override
@@ -33,7 +39,7 @@ public class MainPresenter implements MainMVP.Presenter,
     }
 
     @Override
-    public void onAmountChange() {
+    public void onAmountChange(int amount) {
 
     }
 
@@ -41,11 +47,15 @@ public class MainPresenter implements MainMVP.Presenter,
     @Override
     public void onErrorGetExchangeRates() {
 
+
     }
 
     @Override
-    public void onSuccessGetExchangeRates() {
-
+    public void onSuccessGetExchangeRates(Map<String, Float> exchangeRates) {
+        exchangeAdapterData.setExchangeMap(exchangeRates);
+        if (mainView != null) {
+            mainView.updateExchangeRatesList();
+        }
     }
 
     @Override
@@ -56,9 +66,9 @@ public class MainPresenter implements MainMVP.Presenter,
     }
 
     @Override
-    public void onSuccessGetBaseCurrency() {
+    public void onSuccessGetBaseCurrency(String[] items) {
         if (mainView != null) {
-            mainView.updateBaseCurrencyList();
+            mainView.updateBaseCurrencyList(items);
         }
     }
 
