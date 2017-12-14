@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    // Paytm deepblue
+    <color name="colorPrimary">#042E6F</color>
+    // Paytm deepblue darker
+    <color name="colorPrimaryDark">#02183A</color>
+    // Paytm blue
+    <color name="colorAccent">#00BDF2</color>
+
+    // PayTm Visual Design
+    // Background
+    <color name="paytmBackground">#FAFAFA</color>
+    // Paytm blue 2
+    <color name="paytmBlue2">#51D1F6</color>
+    // Paytm blue 3
+    <color name="paytmBlue3">#ADE9FB</color>
+
 </resources>

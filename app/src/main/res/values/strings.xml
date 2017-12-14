@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PaytmChallenge</string>
+    <string name="app_name">Paytm Challenge</string>
+    <string name="initial_edit_text_currency_value">$0.00</string>
 </resources>

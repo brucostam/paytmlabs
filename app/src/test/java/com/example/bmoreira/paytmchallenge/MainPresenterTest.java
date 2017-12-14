@@ -69,10 +69,10 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void checkIfOnAmountChangeTheDataIsUpdatedAndUpdateGridIsCalled() {
-        int amount = 1023;
+    public void checkIfOnAmountChangeTheBaseValueUpdatesAndUpdateGridIsCalled() {
+        double amount = 1023;
         presenter.onAmountChange(amount);
-//        verify(dataModel, times(i)).updateValuesList();
+        verify(exchangeAdapterData, times(1)).setBaseValue(amount);
         verify(view, times(1)).updateExchangeRatesList();
     }
 

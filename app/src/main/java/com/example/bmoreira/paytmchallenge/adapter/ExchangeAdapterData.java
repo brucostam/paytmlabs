@@ -8,4 +8,5 @@ import java.util.Map;
 
 public interface ExchangeAdapterData {
     void setExchangeMap(Map<String, Float> exchangeMap);
+    void setBaseValue(double value);
 }

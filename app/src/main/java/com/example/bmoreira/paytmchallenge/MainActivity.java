@@ -1,7 +1,10 @@
 package com.example.bmoreira.paytmchallenge;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +14,8 @@ import android.widget.GridView;
 import android.widget.Spinner;
 
 import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapter;
+
+import java.text.NumberFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Drawable logo = getResources().getDrawable(R.drawable.paytm_logo);
+        getSupportActionBar().setBackgroundDrawable(logo);
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setTitle("");
+
         ButterKnife.bind(this);
 
         exchangeAdapter = new ExchangeAdapter(this);
@@ -38,6 +49,39 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
 
         presenter = new MainPresenter(this, new MainInteractor(), exchangeAdapter);
         presenter.onCreate();
+
+        value.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            private String current = "";
+            private double lastCleanAmount = 0;
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current)) {
+                    value.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[$,.]", "");
+
+                    lastCleanAmount = Double.parseDouble(cleanString);
+                    current = NumberFormat.getCurrencyInstance().format((lastCleanAmount / 100));
+
+                    value.setText(current);
+                    value.setSelection(current.length());
+
+                    value.addTextChangedListener(this);
+                }
+                presenter.onAmountChange(lastCleanAmount);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override

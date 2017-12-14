@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
+
+import com.example.bmoreira.paytmchallenge.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Map;
 public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData {
     private Context mContext;
     private Map<String, Float> exchanges;
+    private double baseValue = 0;
 
     public ExchangeAdapter(Context c) {
         mContext = c;
@@ -43,31 +46,38 @@ public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData 
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        TwoLineListItem twoLineListItem;
+        LinearLayout viewLayout;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            twoLineListItem = (TwoLineListItem) inflater.inflate(
-                    android.R.layout.simple_list_item_2, null);
+            viewLayout = (LinearLayout) inflater.inflate(
+                    R.layout.grid_item, null);
         } else {
-            twoLineListItem = (TwoLineListItem) convertView;
+            viewLayout = (LinearLayout) convertView;
         }
 
         List<String> list = new ArrayList<>(exchanges.keySet());
         List<Float> listValue = new ArrayList<>(exchanges.values());
-        TextView text1 = twoLineListItem.getText1();
-        TextView text2 = twoLineListItem.getText2();
+        TextView textCurrency = viewLayout.findViewById(R.id.tv_currency);
+        TextView textRate = viewLayout.findViewById(R.id.tv_rate);
+        TextView textValue = viewLayout.findViewById(R.id.tv_value);
 
-        text1.setText(list.get(position));
+        textCurrency.setText(list.get(position));
         DecimalFormat format = new DecimalFormat("#0.00");
-        text2.setText("" + format.format(listValue.get(position)));
+        textRate.setText("" + format.format(listValue.get(position)));
+        textValue.setText("" + format.format(listValue.get(position) * baseValue/100));
 
-        return twoLineListItem;
+        return viewLayout;
     }
 
     @Override
     public void setExchangeMap(Map<String, Float> exchangeMap) {
         exchanges = exchangeMap;
+    }
+
+    @Override
+    public void setBaseValue(double value) {
+        this.baseValue = value;
     }
 }

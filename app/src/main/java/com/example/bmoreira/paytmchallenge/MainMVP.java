@@ -19,7 +19,7 @@ public interface MainMVP {
         void onCreate();
         void onDestroy();
         void onBaseCurrencyChange(String currency);
-        void onAmountChange(int amount);
+        void onAmountChange(double amount);
     }
 
     interface Interactor {

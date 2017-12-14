@@ -14,8 +14,11 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:gravity="end"
         android:inputType="number"
-        android:text="000"
+        android:text="@string/initial_edit_text_currency_value"
+        android:textAlignment="textEnd"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toStartOf="@+id/sp_currency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

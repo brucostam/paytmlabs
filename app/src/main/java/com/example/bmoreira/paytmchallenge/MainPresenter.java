@@ -16,7 +16,9 @@ public class MainPresenter implements MainMVP.Presenter,
     private MainMVP.Interactor mainInteractor;
     private ExchangeAdapterData exchangeAdapterData;
 
-    public MainPresenter(MainMVP.View mainView, MainMVP.Interactor mainInteractor, ExchangeAdapterData exchangeAdapterData) {
+    public MainPresenter(MainMVP.View mainView,
+                         MainMVP.Interactor mainInteractor,
+                         ExchangeAdapterData exchangeAdapterData) {
         this.mainView = mainView;
         this.mainInteractor = mainInteractor;
         this.exchangeAdapterData = exchangeAdapterData;
@@ -39,15 +41,19 @@ public class MainPresenter implements MainMVP.Presenter,
     }
 
     @Override
-    public void onAmountChange(int amount) {
-
+    public void onAmountChange(double amount) {
+        exchangeAdapterData.setBaseValue(amount);
+        if (mainView != null) {
+            mainView.updateExchangeRatesList();
+        }
     }
 
     /* Interector Listener functions */
     @Override
     public void onErrorGetExchangeRates() {
-
-
+        if (mainView != null) {
+            mainView.showErrorDialog();
+        }
     }
 
     @Override
