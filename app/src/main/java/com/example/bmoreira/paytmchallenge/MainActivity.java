@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
         exchangeAdapter = new ExchangeAdapter(this);
         gridView.setAdapter(exchangeAdapter);
 
-        presenter = new MainPresenter(this, new MainInteractor(), exchangeAdapter);
+        presenter = new MainPresenter(this, new MainInteractor(getApplicationContext()), exchangeAdapter);
         presenter.onCreate();
 
         value.addTextChangedListener(new TextWatcher() {
