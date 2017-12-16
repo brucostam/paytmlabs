@@ -8,7 +8,7 @@
     <TextView android:id="@+id/tv_currency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?attr/textAppearanceListItem" />
@@ -16,7 +16,7 @@
     <TextView android:id="@+id/tv_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?attr/textAppearanceListItemSecondary" />
@@ -24,8 +24,8 @@
     <TextView android:id="@id/tv_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/base_inner_item_margin"
+        android:layout_marginBottom="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?attr/textAppearanceListItemSecondary" />

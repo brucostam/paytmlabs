@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="base_activity_margin">16dp</dimen>
+    <dimen name="margin_between_grid_elements">8dp</dimen>
+    <dimen name="margin_between_common_elements">8dp</dimen>
+    <dimen name="base_inner_item_margin">8dp</dimen>
+</resources>
