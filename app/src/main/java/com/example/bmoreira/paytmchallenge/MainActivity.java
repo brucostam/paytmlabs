@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainMVP.View {
 
+    public static final int BASE_TO_DECIMAL_CONVERSION = 100;
     private MainPresenter presenter;
     @BindView(R.id.tv_value)
     EditText value;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
                     String cleanString = s.toString().replaceAll("[$,.]", "");
 
                     lastCleanAmount = Double.parseDouble(cleanString);
-                    current = NumberFormat.getCurrencyInstance().format((lastCleanAmount / 100));
+                    current = NumberFormat.getCurrencyInstance().format((lastCleanAmount / BASE_TO_DECIMAL_CONVERSION));
 
                     value.setText(current);
                     value.setSelection(current.length());

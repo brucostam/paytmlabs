@@ -20,6 +20,7 @@ import java.util.Map;
  */
 
 public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData {
+    public static final int BASE_TO_DECIMAL_CONVERSION = 100;
     private Context mContext;
     private Map<String, Float> exchanges;
     private double baseValue = 0;
@@ -67,7 +68,7 @@ public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData 
         textCurrency.setText(list.get(position));
         DecimalFormat format = new DecimalFormat("#0.00");
         textRate.setText("" + format.format(listValue.get(position)));
-        textValue.setText("" + format.format(listValue.get(position) * baseValue / 100));
+        textValue.setText("" + format.format(listValue.get(position) * baseValue / BASE_TO_DECIMAL_CONVERSION));
 
         return viewLayout;
     }
