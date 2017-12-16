@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.internal.Utils;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -33,7 +32,8 @@ public class MainInteractor implements MainMVP.Interactor {
 
     public static final String API_URL = "https://api.fixer.io";
 
-    // *Rates should be persisted locally and refreshed no more frequently than every 30 minutes (to limit bandwidth usage)
+    // *Rates should be persisted locally and refreshed no more
+    // frequently than every 30 minutes (to limit bandwidth usage)
     public static final int MAX_ONLINE_CACHE_TIME = 60 * 30; // 30 min tolerance
     public static final int MAX_OFFLINE_CACHE_TIME = 60 * 60 * 24; // 1 day tolerance
     public static final int MAX_CACHE_SIZE = 10 * 1024 * 1024; // 10 MB
@@ -60,7 +60,6 @@ public class MainInteractor implements MainMVP.Interactor {
     @Override
     public void getExchangeRates(String baseCurrency, final OnGetExchangeRatesFinishedListener listener) {
         // Connect to the server to retrieve the list
-        //TODO: use cache if less then 30minutes from last call.
         final Call<Latest> latestCall = fixerAPIService.differentBaseExchangeRates(baseCurrency);
         latestCall.enqueue(new Callback<Latest>() {
             @Override
@@ -87,7 +86,6 @@ public class MainInteractor implements MainMVP.Interactor {
     @Override
     public void getBaseCurrencyList(final OnGetBaseCurrencyListFinishedListener listener) {
         // Connect to the server to retrieve the list
-        //TODO: use cache if less then 30minutes from last call.
         final Call<Latest> latestCall = fixerAPIService.defaultExchangeRates();
         latestCall.enqueue(new Callback<Latest>() {
             @Override

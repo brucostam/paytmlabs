@@ -37,7 +37,8 @@ public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData 
     }
 
     public Object getItem(int position) {
-        return null;
+        List<String> list = new ArrayList<>(exchanges.keySet());
+        return list.get(position);
     }
 
     public long getItemId(int position) {
@@ -66,7 +67,7 @@ public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData 
         textCurrency.setText(list.get(position));
         DecimalFormat format = new DecimalFormat("#0.00");
         textRate.setText("" + format.format(listValue.get(position)));
-        textValue.setText("" + format.format(listValue.get(position) * baseValue/100));
+        textValue.setText("" + format.format(listValue.get(position) * baseValue / 100));
 
         return viewLayout;
     }

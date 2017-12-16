@@ -48,4 +48,16 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_value">
     </GridView>
 
+    <ImageView
+        android:id="@+id/img_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_value"
+        android:src="@drawable/no_internet_empty_state"
+        android:visibility="invisible"
+        />
 </android.support.constraint.ConstraintLayout>

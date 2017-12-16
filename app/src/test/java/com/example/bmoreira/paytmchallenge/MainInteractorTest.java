@@ -12,7 +12,7 @@ public class MainInteractorTest {
 
     @Before
     public void setUp() {
-        interactor = new MainInteractor();
+//        interactor = new MainInteractor();
     }
 
     @Test

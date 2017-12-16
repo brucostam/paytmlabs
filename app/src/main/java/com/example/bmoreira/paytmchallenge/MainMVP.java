@@ -11,8 +11,11 @@ public interface MainMVP {
     interface View {
         void updateExchangeRatesList();
         void updateBaseCurrencyList(String[] items);
-        void showErrorDialog();
-        void hideErrorDialog();
+        void hideEmptyListState();
+        void showEmptyListState();
+        void hideGrid();
+        void showGrid();
+
     }
 
     interface Presenter {

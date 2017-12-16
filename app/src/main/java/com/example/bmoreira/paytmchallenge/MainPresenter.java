@@ -27,7 +27,6 @@ public class MainPresenter implements MainMVP.Presenter,
     @Override
     public void onCreate() {
         mainInteractor.getBaseCurrencyList(this);
-//        mainInteractor.getExchangeRates("USD", this);
     }
 
     @Override
@@ -52,7 +51,8 @@ public class MainPresenter implements MainMVP.Presenter,
     @Override
     public void onErrorGetExchangeRates() {
         if (mainView != null) {
-            mainView.showErrorDialog();
+            mainView.hideGrid();
+            mainView.showEmptyListState();
         }
     }
 
@@ -61,13 +61,16 @@ public class MainPresenter implements MainMVP.Presenter,
         exchangeAdapterData.setExchangeMap(exchangeRates);
         if (mainView != null) {
             mainView.updateExchangeRatesList();
+            mainView.showGrid();
+            mainView.hideEmptyListState();
         }
     }
 
     @Override
     public void onErrorGetBaseCurrency() {
         if (mainView != null) {
-            mainView.showErrorDialog();
+            mainView.hideGrid();
+            mainView.showEmptyListState();
         }
     }
 
@@ -75,6 +78,7 @@ public class MainPresenter implements MainMVP.Presenter,
     public void onSuccessGetBaseCurrency(String[] items) {
         if (mainView != null) {
             mainView.updateBaseCurrencyList(items);
+            mainView.hideEmptyListState();
         }
     }
 

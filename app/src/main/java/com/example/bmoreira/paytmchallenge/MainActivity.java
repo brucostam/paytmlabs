@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapter;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
     Spinner spinnerCurrency;
     @BindView(R.id.gl_exchanges)
     GridView gridView;
+    @BindView(R.id.img_empty_state)
+    ImageView imgEmptyState;
 
     private ExchangeAdapter exchangeAdapter;
 
@@ -119,12 +122,22 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
     }
 
     @Override
-    public void showErrorDialog() {
-        Log.d("Paytm", "showErrorDialog Here");
+    public void hideEmptyListState() {
+        imgEmptyState.setVisibility(View.INVISIBLE);
     }
 
     @Override
-    public void hideErrorDialog() {
-        Log.d("Paytm", "hideErrorDialog Here");
+    public void showEmptyListState() {
+        imgEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideGrid() {
+        gridView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showGrid() {
+        gridView.setVisibility(View.VISIBLE);
     }
 }
