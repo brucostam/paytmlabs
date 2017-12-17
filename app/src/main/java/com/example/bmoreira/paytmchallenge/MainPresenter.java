@@ -4,6 +4,8 @@ import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapterData;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by bruco on 2017-12-12.
  */
@@ -16,6 +18,7 @@ public class MainPresenter implements MainMVP.Presenter,
     private MainMVP.Interactor mainInteractor;
     private ExchangeAdapterData exchangeAdapterData;
 
+    @Inject
     public MainPresenter(MainMVP.View mainView,
                          MainMVP.Interactor mainInteractor,
                          ExchangeAdapterData exchangeAdapterData) {

@@ -3,8 +3,6 @@ package com.example.bmoreira.paytmchallenge;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,16 +13,28 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapter;
+import com.example.bmoreira.paytmchallenge.di.component.DaggerMainScreenComponent;
+import com.example.bmoreira.paytmchallenge.di.component.DaggerNetComponent;
+import com.example.bmoreira.paytmchallenge.di.component.NetComponent;
+import com.example.bmoreira.paytmchallenge.di.module.MainViewModule;
+import com.example.bmoreira.paytmchallenge.di.module.NetModule;
+import com.example.bmoreira.paytmchallenge.util.CleanStringChangeListener;
+import com.example.bmoreira.paytmchallenge.util.CurrencyTextWatcher;
 
-import java.text.NumberFormat;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainMVP.View {
+public class MainActivity extends AppCompatActivity implements MainMVP.View,
+        CleanStringChangeListener,
+        AdapterView.OnItemSelectedListener {
 
-    public static final int BASE_TO_DECIMAL_CONVERSION = 100;
+    public static final String API_URL = "https://api.fixer.io";
+
     private MainPresenter presenter;
+    private ExchangeAdapter exchangeAdapter;
+
     @BindView(R.id.tv_value)
     EditText value;
     @BindView(R.id.sp_currency)
@@ -34,7 +44,17 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
     @BindView(R.id.img_empty_state)
     ImageView imgEmptyState;
 
-    private ExchangeAdapter exchangeAdapter;
+    @Inject
+    public void setPresenter(MainPresenter presenter) {
+        this.presenter = presenter;
+    }
+
+
+    @Inject
+    public void setExchangeAdapter(ExchangeAdapter exchangeAdapter) {
+        this.exchangeAdapter = exchangeAdapter;
+        gridView.setAdapter(exchangeAdapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,44 +68,20 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
 
         ButterKnife.bind(this);
 
-        exchangeAdapter = new ExchangeAdapter(this);
-        gridView.setAdapter(exchangeAdapter);
+        NetComponent netComponent = DaggerNetComponent.builder()
+                .appComponent(((App) getApplication()).getAppComponent())
+                .netModule(new NetModule(API_URL))
+                .build();
 
-        presenter = new MainPresenter(this, new MainInteractor(getApplicationContext()), exchangeAdapter);
+        DaggerMainScreenComponent.builder()
+                .netComponent(netComponent)
+                .mainViewModule(new MainViewModule(this))
+                .build().inject(this);
+
+
         presenter.onCreate();
 
-        value.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            private String current = "";
-            private double lastCleanAmount = 0;
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().equals(current)) {
-                    value.removeTextChangedListener(this);
-
-                    String cleanString = s.toString().replaceAll("[$,.]", "");
-
-                    lastCleanAmount = Double.parseDouble(cleanString);
-                    current = NumberFormat.getCurrencyInstance().format((lastCleanAmount / BASE_TO_DECIMAL_CONVERSION));
-
-                    value.setText(current);
-                    value.setSelection(current.length());
-
-                    value.addTextChangedListener(this);
-                }
-                presenter.onAmountChange(lastCleanAmount);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        value.addTextChangedListener(new CurrencyTextWatcher(value, this));
     }
 
     @Override
@@ -109,17 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCurrency.setAdapter(adapter);
-        spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                presenter.onBaseCurrencyChange(parent.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                //Make gridview invisible?
-            }
-        });
+        spinnerCurrency.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -140,5 +126,20 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View {
     @Override
     public void showGrid() {
         gridView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void cleanValueChanged(double cleanValue) {
+        presenter.onAmountChange(cleanValue);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        presenter.onBaseCurrencyChange(parent.getItemAtPosition(position).toString());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

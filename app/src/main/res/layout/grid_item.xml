@@ -11,6 +11,7 @@
         android:layout_marginTop="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/grid_inner_item_text_size"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView android:id="@+id/tv_rate"
@@ -19,6 +20,7 @@
         android:layout_marginTop="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/grid_inner_item_text_size"
         android:textAppearance="?attr/textAppearanceListItemSecondary" />
 
     <TextView android:id="@id/tv_value"
@@ -28,6 +30,7 @@
         android:layout_marginBottom="@dimen/base_inner_item_margin"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/grid_inner_item_text_size"
         android:textAppearance="?attr/textAppearanceListItemSecondary" />
 
 </LinearLayout>

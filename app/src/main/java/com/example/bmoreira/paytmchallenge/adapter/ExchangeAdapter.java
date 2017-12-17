@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * Created by bruco on 2017-12-14.
  */
@@ -25,6 +27,7 @@ public class ExchangeAdapter extends BaseAdapter implements ExchangeAdapterData 
     private Map<String, Float> exchanges;
     private double baseValue = 0;
 
+    @Inject
     public ExchangeAdapter(Context c) {
         mContext = c;
     }

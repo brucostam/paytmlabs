@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 task checkstyle(type: Checkstyle){
@@ -42,4 +48,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.google.dagger:dagger:2.13'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    testImplementation "org.robolectric:robolectric:3.5.1"
 }

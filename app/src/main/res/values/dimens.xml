@@ -4,4 +4,5 @@
     <dimen name="margin_between_grid_elements">8dp</dimen>
     <dimen name="margin_between_common_elements">8dp</dimen>
     <dimen name="base_inner_item_margin">8dp</dimen>
+    <dimen name="grid_inner_item_text_size">16sp</dimen>
 </resources>

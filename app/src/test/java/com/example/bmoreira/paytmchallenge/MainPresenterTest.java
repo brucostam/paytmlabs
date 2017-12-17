@@ -1,7 +1,5 @@
 package com.example.bmoreira.paytmchallenge;
 
-import android.widget.BaseAdapter;
-
 import com.example.bmoreira.paytmchallenge.adapter.ExchangeAdapterData;
 
 import org.junit.Before;
