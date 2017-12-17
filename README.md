@@ -1,6 +1,6 @@
 # Paytmlabs
 
-### Project Objective
+## Project Objective
 
 Develop a Currency Conversion App to show my coding style, some good practices and how I usually structure an Android app.
 
@@ -12,9 +12,9 @@ To make it easier to reviewers, the APK can be downloaded from this link: [paytm
 
 Below, I explain the project in more details.
 
-### How functional requirements were implemented
+## How functional requirements were implemented
 
-#### Exchange rates must be fetched from: http://fixer.io/
+### Exchange rates must be fetched from: http://fixer.io/
 
 Retrofit was used to create a FixerApiService.
 
@@ -48,7 +48,7 @@ And finally:
 return retrofit.create(FixerAPIService.class);
 ```
 
-#### User must be able to select a currency from a list of currencies available from Fixer
+### User must be able to select a currency from a list of currencies available from Fixer
 
 Using the code above, the currency list available from Fixer was obtained using `Call<Latest> defaultExchangeRates();`
 
@@ -65,7 +65,7 @@ spinnerCurrency.setOnItemSelectedListener(this);
 
 This way, the user could select the currency from a list showed on a spinner.
 
-#### User should then see a list of exchange rates for the selected currency
+### User should then see a list of exchange rates for the selected currency
 
 After selecting a currency on the spinner, the view notifies that the exchange rates list should be refreshed with
 the new base currency.
@@ -82,7 +82,7 @@ if (mainView != null) {
 }
 ```
 
-#### Rates should be persisted locally and refreshed no more frequently than every 30 minutes (to limit bandwidth usage)
+### Rates should be persisted locally and refreshed no more frequently than every 30 minutes (to limit bandwidth usage)
 
 To achieve this refresh time, a cache and an interceptor were created to be used on the okhttpclient.
 The cache persists the information locally, while the interceptor rewrites the response headers
@@ -128,7 +128,7 @@ OkHttpClient client = new OkHttpClient
 > Note that a better way to achieve the same rate os refresh would be configuring better the server side to send the correct
 > header. Since this was not possible in this case, I used the interceptor for the purpose of showing how it can be done.
 
-### App design
+## App design
 
 The UI of the app was inspired on Paytm's Visual Identity document that I found on this link: [Paytm Visual Identity](http://liquiddesigns.in/project/paytm-visual-identity-design/)
 
@@ -142,7 +142,7 @@ Pallet based on the figure below:
 
 ![paytm_pallet](app/src/main/res/drawable/paytm_pallet_reference.png)
 
-### MVP Architecture
+## MVP Architecture
 
 The MVP Architecture was used in this project. It is widely used nowadays for Android projects and it helps
 a lot to make the code more extensible, maintainable and testable.
@@ -150,7 +150,7 @@ a lot to make the code more extensible, maintainable and testable.
 Because of the nature of the project and its size, the core components are basically 3: **MainActivity, MainPresenter and MainInteractor**
 And the MVP interfaces can be found in [MainMVP.java](app/src/main/java/com/example/bmoreira/paytmchallenge/MainMVP.java)
 
-### Tests and Coverage
+## Tests and Coverage
 
 The frameworks used for the tests were: **Mockito, Robolectric, Espresso**
 
@@ -164,13 +164,13 @@ I implemented both JUnit and Instrumented tests.
 
 For example, the portion of the MainActivity that were not covered on the Unit tests are implemented as instrumented tests.
 
-### Version Control
+## Version Control
 
 **GIT** + Github were extensively used during the development of this app.
 
 Although I use Git Flow in a regular basis, I did not used it in this project because of the projects nature.
 
-### Dependencies
+## Dependencies
 
 | Dependencie        | Description           |
 | ------------- |:-------------:|
@@ -183,7 +183,7 @@ Although I use Git Flow in a regular basis, I did not used it in this project be
 | ButterKnife | To easily bind views to objects and remove boilerplate code |
 | Dagger 2 | Dependency Injection Framework |
 
-### CheckStyle
+## CheckStyle
 
 Using Checkstyle to help maintenance of coding standard
 
