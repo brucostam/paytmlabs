@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View,
         CleanStringChangeListener,
         AdapterView.OnItemSelectedListener {
 
+    // Functional Requirement: Exchange rates must be fetched from: http://fixer.io/
     public static final String API_URL = "https://api.fixer.io";
 
     private MainPresenter presenter;
@@ -100,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View,
     public void updateBaseCurrencyList(String[] items) {
         Log.d("Paytm", "updateBaseCurrencyList Here");
 
+        // Functional requirement: User must be able to select a currency from a list of currencies available from Fixer
+        // The currencies are received in this function, where we set up a Spinner with the list of currencies values,
+        // so that the user can select a currency from the list.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, items);
 

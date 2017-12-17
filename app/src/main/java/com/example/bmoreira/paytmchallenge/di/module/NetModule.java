@@ -31,7 +31,6 @@ public class NetModule {
     public static final int MAX_OFFLINE_CACHE_TIME = 60 * 60 * 24; // 1 day tolerance
     public static final int MAX_CACHE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-    // Constructor needs one parameter to instantiate.
     public NetModule(String baseUrl) {
         this.mBaseUrl = baseUrl;
     }
@@ -46,6 +45,13 @@ public class NetModule {
     @Provides
     @Singleton
     Interceptor provideOkHttpInterceptor(final Application application) {
+        // Functional requirement: Rates should be persisted locally and refreshed no more
+        // frequently than every 30 minutes (to limit bandwidth usage)
+        // To achieve this refresh time, a cache and an interceptor were created to be used
+        // on the okhttpclient. The cache persists the information locally, while the
+        // interceptor rewrites the response headers to reconfigure the Cache-Control
+        // to a max-age value of 60 * 30. This will tell the client to use the cache
+        // response, not consuming bandwidth, if the last message was received less then 30 minutes ago.
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

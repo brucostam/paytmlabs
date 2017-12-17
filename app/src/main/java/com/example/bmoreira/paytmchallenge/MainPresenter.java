@@ -50,7 +50,7 @@ public class MainPresenter implements MainMVP.Presenter,
         }
     }
 
-    /* Interector Listener functions */
+    /* Interactor Listener functions */
     @Override
     public void onErrorGetExchangeRates() {
         if (mainView != null) {
@@ -61,6 +61,10 @@ public class MainPresenter implements MainMVP.Presenter,
 
     @Override
     public void onSuccessGetExchangeRates(Map<String, Float> exchangeRates) {
+        // Functional Requirement: User should then see a list of exchange rates for the selected currency
+        // When the rates are properly fetched from server, the adapter that holds the grid items is
+        // updated with new values and notified to refresh the values on the screen. This way the
+        // user can see the list of exchange rates.
         exchangeAdapterData.setExchangeMap(exchangeRates);
         if (mainView != null) {
             mainView.updateExchangeRatesList();
